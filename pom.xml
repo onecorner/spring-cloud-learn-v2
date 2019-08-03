@@ -9,5 +9,96 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <properties>
+        <!-- 文件拷贝时的编码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- 编译时的编码 -->
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+    </properties>
+
+
+    <modules>
+        <module>eureka-server-1001</module>
+        <module>eureka-server-1002</module>
+        <module>eureka-service-2001</module>
+        <module>loadBalancer-client-3001</module>
+        <module>ribbon-comsumer-4001</module>
+        <module>feign-client-5001</module>
+    </modules>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.config.common</groupId>
+            <artifactId>common-config-module</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Dalston.SR1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>1.5.4.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+
+
+    </dependencyManagement>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+
+
+    <!--部署地址-->
+   <distributionManagement>
+       <repository>
+           <id>nexus-upload</id>
+           <name>Releases</name>
+           <!--注意这里不能是公共地址，必须是release-->
+           <url>http://192.168.1.4:8081/nexus/content/repositories/releases/</url>
+       </repository>
+       <snapshotRepository>
+           <id>nexus-upload</id>
+           <name>snapshot</name>
+           <!--注意这里不能是公共地址-->
+           <url>http://192.168.1.4:8081/nexus/content/repositories/snapshots/</url>
+       </snapshotRepository>
+   </distributionManagement>
 
 </project>
